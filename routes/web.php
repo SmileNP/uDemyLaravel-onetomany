@@ -21,6 +21,23 @@ Route::get('/', function () {
 
 Route::get('/create', function (){
     $user = User::findOrFail(1);
-    $post = new Post(['title'=>'First post with Edwin', 'body'=>'Laravel LOVe']);
+    $post = new Post(['title'=>'Second post without Edwin', 'body'=>'Frameworks']);
     $user->posts()->save($post);
+});
+
+Route::get('/read', function (){
+    $user = User::findOrFail(1);
+    foreach ($user->posts as $post) {
+        echo $post->title . "<br>";
+    }
+});
+
+Route::get('/update', function (){
+    $user = User::find(1);
+    $user->posts()->where('id', '=', 2)->update(['title'=>'update title', 'body'=>'thanks']);
+});
+
+Route::get('/delete', function (){
+    $user = User::find(1);
+    $user->posts()->where('id', '=', 2)->delete();
 });
