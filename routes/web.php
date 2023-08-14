@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/create', function (){
+    $user = User::findOrFail(1);
+    $post = new Post(['title'=>'First post with Edwin', 'body'=>'Laravel LOVe']);
+    $user->posts()->save($post);
 });
